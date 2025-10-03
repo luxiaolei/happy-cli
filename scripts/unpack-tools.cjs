@@ -8,8 +8,16 @@
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
-const tar = require('tar');
 const os = require('os');
+
+// Try to require tar, but handle gracefully if it's not available yet
+let tar;
+try {
+    tar = require('tar');
+} catch (e) {
+    console.log('tar module not yet installed, skipping tool unpacking (will be done on next install)');
+    process.exit(0);
+}
 
 /**
  * Get the platform-specific directory name
