@@ -10,6 +10,14 @@ const path = require('path');
 const zlib = require('zlib');
 const os = require('os');
 
+// Handle invalid working directory (can happen during npm install from git)
+try {
+    process.cwd();
+} catch (e) {
+    console.log('Invalid working directory, skipping tool unpacking');
+    process.exit(0);
+}
+
 // Try to require tar, but handle gracefully if it's not available yet
 let tar;
 try {
